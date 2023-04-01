@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "waderyan.nodejs-extension-pack",
+    "mikestead.dotenv"
+  ]
+}
