@@ -6,13 +6,13 @@ import cors from "cors";
 // Get env variables
 dotenv.config();
 
-// import database from "./app/database/index.js";
+import database from "./app/database/index.js";
 // import routes from "./app/routes/index.js"; // Import API routes
 
 // Establish database connection
-// (async () => {
-//     await database();
-// })();
+(async () => {
+    await database();
+})();
 
 // Create express instance
 const app = express();
