@@ -2,8 +2,8 @@ import dotenv from "dotenv";
 import { Sequelize } from "sequelize";
 dotenv.config();
 
-// import User from "../models/User.js";
-// import Task from "../models/Task.js";
+import User from "../models/User.js";
+import Task from "../models/Task.js";
 
 const sequelize = new Sequelize(
     process.env.MYSQL_DATABASE,
@@ -24,14 +24,14 @@ const sequelize = new Sequelize(
 const database = async function connect() {
     try {
         // * Start Models here
-        // User.init(sequelize);
-        // Task.init(sequelize);
+        User.init(sequelize);
+        Task.init(sequelize);
 
         // * Configure Associations here
-        // Task.belongsTo(User, {
-        //     as: "user",
-        //     foreignKey: "user_id",
-        // });
+        Task.belongsTo(User, {
+            as: "user",
+            foreignKey: "user_id",
+        });
 
         // await sequelize.sync({ alter: false }); // force: true to drop and re-create
         await sequelize.authenticate();

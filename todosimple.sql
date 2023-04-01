@@ -3,7 +3,7 @@ USE `todosimple`;
 
 CREATE TABLE IF NOT EXISTS `user` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `password` varchar(60) NOT NULL,
+  `password` varchar(64) NOT NULL,
   `username` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_sb8bbouer5wak8vyiiy4pf2bx` (`username`)
