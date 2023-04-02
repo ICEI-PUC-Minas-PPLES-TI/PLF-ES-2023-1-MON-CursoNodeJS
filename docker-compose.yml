@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+    mysqldb:
+        image: mysql:5.7
+        container_name: todosimple-mysql
+        restart: unless-stopped
+        env_file: ./.env
+        environment:
+            - MYSQL_ROOT_PASSWORD=$MYSQL_PASSWORD
+            - MYSQL_DATABASE=$MYSQL_DATABASE
+            - MYSQL_TCP_PORT=$MYSQL_DOCKER_PORT
+        ports:
+            - $MYSQL_LOCAL_PORT:$MYSQL_DOCKER_PORT
+        expose:
+            - $MYSQL_DOCKER_PORT
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+            timeout: 5s
+            retries: 10
+    app:
+        depends_on:
+            mysqldb:
+                condition: service_healthy
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        working_dir: /usr/src/todosimple
+        container_name: todosimple-api
+        restart: unless-stopped
+        env_file: ./.env
+        environment:
+            - MYSQL_HOST=mysqldb
+            - MYSQL_LOCAL_PORT=$MYSQL_DOCKER_PORT
+            - MYSQL_DATABASE=$MYSQL_DATABASE
+            - MYSQL_USERNAME=$MYSQL_USERNAME
+            - MYSQL_PASSWORD=$MYSQL_PASSWORD
+        ports:
+            - $NODE_LOCAL_PORT:$NODE_LOCAL_PORT
+        stdin_open: true
+        tty: true

@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_sb8bbouer5wak8vyiiy4pf2bx` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 CREATE TABLE IF NOT EXISTS `task` (
   `id` bigint NOT NULL AUTO_INCREMENT,
@@ -16,4 +16,4 @@ CREATE TABLE IF NOT EXISTS `task` (
   PRIMARY KEY (`id`),
   KEY `FK2hsytmxysatfvt0p1992cw449` (`user_id`),
   CONSTRAINT `FK2hsytmxysatfvt0p1992cw449` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
