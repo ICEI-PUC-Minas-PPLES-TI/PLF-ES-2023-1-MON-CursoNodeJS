@@ -1,0 +1,396 @@
+{
+	"info": {
+		"_postman_id": "11ac16c5-700c-4da7-8900-fa282a6de6af",
+		"name": "ToDo-Simple API NodeJs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11631363"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/user/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{authorization_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"oldPassword\": \"supersenha\",\r\n    \"password\": \"supersenha\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/user",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Task",
+			"item": [
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status 201\", function() {\r",
+									"    pm.response.to.have.status(201)\r",
+									"    const res = pm.response.json()\r",
+									"    console.log(res)\r",
+									"    pm.collectionVariables.set(\"last_task_id\", res[\"id\"])\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{authorization_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Tarefa da faculdade 0\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/task",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"task"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{authorization_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/task/{{last_task_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"task",
+								"{{last_task_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{authorization_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/task?page=1&limit=5&attribute=description&order=DESC&description=Tarefa da faculdade",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"task"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "attribute",
+									"value": "description"
+								},
+								{
+									"key": "order",
+									"value": "DESC"
+								},
+								{
+									"key": "description",
+									"value": "Tarefa da faculdade"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{authorization_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Tarefa da faculdade atualizada\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/task/{{last_task_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"task",
+								"{{last_task_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{authorization_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/task/{{last_task_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"task",
+								"{{last_task_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"let host = pm.collectionVariables.get(\"host\");",
+					"let username = pm.collectionVariables.get(\"username\");",
+					"let password = pm.collectionVariables.get(\"password\");",
+					"",
+					"let body = JSON.stringify({",
+					"    \"username\": username,",
+					"    \"password\": password",
+					"})",
+					"",
+					"const postRequest = {",
+					"  url: host + '/api/user/login',",
+					"  method: 'POST',",
+					"  timeout: 0,",
+					"  header: {",
+					"    \"Content-Type\": \"application/json\",",
+					"    \"Accept\": \"*/*\"",
+					"  },",
+					"  body: body",
+					"};",
+					"pm.sendRequest(postRequest, function (err, res) {",
+					"    console.log(\"Login Response: \", res);",
+					"    if (err) console.log(\"Error: \", err);",
+					"    let token = res.json()['token'];",
+					"    if(token) pm.collectionVariables.set('authorization_token', token);",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:3001",
+			"type": "string"
+		},
+		{
+			"key": "authorization_token",
+			"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzQsImlhdCI6MTY3ODg0MDQxMCwiZXhwIjoxNjg2NjE2NDEwfQ.pDy9D7yrFljyVCPZpmqqF9A4PUMZ9teeOwJ4cA_G_8g",
+			"type": "string"
+		},
+		{
+			"key": "username",
+			"value": "lucas",
+			"type": "string"
+		},
+		{
+			"key": "password",
+			"value": "supersenha",
+			"type": "string"
+		},
+		{
+			"key": "last_task_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

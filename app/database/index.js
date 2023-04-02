@@ -38,13 +38,13 @@ const database = async function connect() {
 
         if (process.env.APP_DEBUG) {
             console.log(
-                `\n--> Connection with '${process.env.MYSQL_HOST}:${process.env.MYSQL_LOCAL_PORT}/${process.env.MYSQL_DATABASE}' established`
+                `\n--> Connection with '${process.env.MYSQL_HOST}:${process.env.MYSQL_DOCKER_PORT}/${process.env.MYSQL_DATABASE}' established`
             );
         }
     } catch (error) {
         if (process.env.APP_DEBUG) {
             console.error(
-                `\nUnable to establish, check or re-sync connection with '${process.env.MYSQL_HOST}:${process.env.MYSQL_LOCAL_PORT}/${process.env.MYSQL_DATABASE} with user '${process.env.MYSQL_USERNAME}' and password '${process.env.MYSQL_PASSWORD}!'`
+                `\nUnable to establish, check or re-sync connection with '${process.env.MYSQL_HOST}:${process.env.MYSQL_DOCKER_PORT}/${process.env.MYSQL_DATABASE} with user '${process.env.MYSQL_USERNAME}' and password '${process.env.MYSQL_PASSWORD}!'`
             );
             console.error(error);
         }
